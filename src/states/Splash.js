@@ -13,7 +13,10 @@ export default class extends Phaser.State {
     this.load.image('background', 'assets/images/background.png')
     this.load.image('ground', 'assets/images/transparent.png')
     this.load.image('cow', 'assets/images/cow.png')
-    this.load.spritesheet('runner', 'assets/images/runner2.png', 250, 217)
+    this.load.spritesheet('runner', 'assets/images/runner.png', 250, 217)
+    this.load.image('ready', 'assets/images/get-ready.png')
+    this.load.image('game-over', 'assets/images/gameover.png')
+    this.load.image('startButton', 'assets/images/start-button.png')
 
     this.load.audio('score', 'assets/sounds/score.wav')
     this.load.audio('up', 'assets/sounds/flap.wav')
@@ -23,7 +26,7 @@ export default class extends Phaser.State {
   create () {
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.physics.arcade.gravity.y = 850
-    this.state.start('Game')
+    this.state.start('Menu')
   }
 
 }

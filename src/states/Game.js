@@ -28,7 +28,7 @@ export default class extends Phaser.State {
 
     this.runner = new Runner({
       game: this.game,
-      x: this.game.world.centerX,
+      x: this.game.world.centerX - 100,
       y: 465,
       asset: 'runner'
     })
@@ -69,7 +69,7 @@ export default class extends Phaser.State {
         name: 'CowPool'
       })
     }
-    pool.reset(this.game.width + pool.width / 2, 475)
+    pool.reset(this.game.width + pool.width / 2, 465)
   }
 
   checkScore (pool) {
@@ -83,8 +83,7 @@ export default class extends Phaser.State {
 
   gameOver () {
     this.dieSound.play()
-    window.alert('GAME OVER!')
-    this.state.start('Game')
+    this.state.start('GameOver')
   }
 
   shutdown () {
@@ -95,7 +94,7 @@ export default class extends Phaser.State {
 
   render () {
     if (__DEV__) {
-      this.game.debug.spriteInfo(this.runner, 32, 32)
+      // this.game.debug.spriteInfo(this.runner, 32, 32)
     }
   }
 }

@@ -15,7 +15,7 @@ export default class extends Phaser.Group {
     this.add(this.cow)
 
     this.hasScored = false
-    this.setAll('body.velocity.x', -350)
+    this.setAll('body.velocity.x', -300)
   }
 
   update () {
@@ -32,7 +32,7 @@ export default class extends Phaser.Group {
     this.cow.reset(0, 0)
     this.x = x
     this.y = y
-    this.setAll('body.velocity.x', -350)
+    this.setAll('body.velocity.x', -300)
     this.hasScored = false
     this.exists = true
   }
