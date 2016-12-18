@@ -29,7 +29,7 @@ export default class extends Phaser.State {
 
     this.runner = new Runner({
       game: this.game,
-      x: this.game.world.centerX - 50,
+      x: this.game.world.centerX - 100,
       y: 465,
       asset: 'runner'
     })
@@ -84,7 +84,9 @@ export default class extends Phaser.State {
     this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR)
     this.runner.destroy()
     this.cows.destroy()
-    this.game.sound._sounds[0].destroy()
+    this.game.sound._sounds.forEach(sound => {
+      sound.destroy()
+    })
   }
 
   render () {
