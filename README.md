@@ -1,4 +1,5 @@
-# Phaser + ES6 + Webpack.
+# farm-of-freixa
+## Phaser + ES6 + Webpack.
 #### A bootstrap project to create games with Phaser + ES6 + Webpack.
 
 ![Phaser+ES6+Webpack](https://raw.githubusercontent.com/lean/phaser-es6-webpack/master/assets/images/phaser-es6-webpack.jpg)
@@ -24,7 +25,7 @@ Navigate into your workspace directory.
 
 Run:
 
-```git clone https://github.com/lean/phaser-es6-webpack.git```
+```git clone https://github.com/edgarordonez/farm-of-freixa.git```
 
 ## 2. Install node.js and npm:
 
@@ -66,4 +67,3 @@ Big thanks to this great repos:
 https://github.com/belohlavek/phaser-es6-boilerplate
 
 https://github.com/cstuncsik/phaser-es6-demo
-# farm-of-freixa

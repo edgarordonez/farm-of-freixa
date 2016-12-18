@@ -11,6 +11,6 @@ export default class extends Phaser.Sprite {
     this.body.immovable = true
 
     this.anchor.setTo(0.5, 0.5)
-    this.scale.setTo(0.9, 0.9)
+    this.scale.setTo(0.8, 0.8)
   }
 }

@@ -10,14 +10,16 @@ export default class extends Phaser.State {
     centerGameObjects([this.loaderBg, this.loaderBar])
 
     this.load.setPreloadSprite(this.loaderBar)
+    this.load.bitmapFont('flappyfont', 'assets/fonts/flappyfont/flappyfont.png', 'assets/fonts/flappyfont/flappyfont.fnt')
+    this.load.spritesheet('runner', 'assets/images/runner.png', 200, 218)
     this.load.image('background', 'assets/images/background.png')
     this.load.image('ground', 'assets/images/transparent.png')
     this.load.image('cow', 'assets/images/cow.png')
-    this.load.spritesheet('runner', 'assets/images/runner.png', 250, 217)
     this.load.image('ready', 'assets/images/get-ready.png')
     this.load.image('game-over', 'assets/images/gameover.png')
     this.load.image('startButton', 'assets/images/start-button.png')
 
+    this.load.audio('game', 'assets/sounds/game.mp3')
     this.load.audio('score', 'assets/sounds/score.wav')
     this.load.audio('up', 'assets/sounds/flap.wav')
     this.load.audio('die', 'assets/sounds/ground-hit.wav')
@@ -28,5 +30,4 @@ export default class extends Phaser.State {
     this.game.physics.arcade.gravity.y = 850
     this.state.start('Menu')
   }
-
 }

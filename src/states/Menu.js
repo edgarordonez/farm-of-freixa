@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import { centerGameObjects } from '../utils'
 import Background from '../sprites/Background'
 
 export default class extends Phaser.State {
@@ -14,18 +15,24 @@ export default class extends Phaser.State {
       asset: 'background'
     })
 
-    this.game.add.existing(this.background)
-    this.game.add.sprite(this.game.width / 2 - 90, 200, 'ready')
-    this.startButton = this.game.add.button(this.game.width / 2, 300, 'startButton', this.startClick, this)
-    this.startButton.anchor.setTo(0.5, 0.5)
-    this.titleGame = this.add.text(this.game.world.centerX, this.game.height - 30, `FARM OF FREIXA`)
-    this.titleGame.font = 'Nunito'
-    this.titleGame.fontSize = 20
-    this.titleGame.fill = '#FFFFFF'
-    this.titleGame.anchor.setTo(0.5)
+    this.ready = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'ready')
+    this.game.add.tween(this.ready.scale).to({x: 1.1, y: 1.1}, 1000, Phaser.Easing.Linear.NONE, true, 0, 1000, true)
+
+    this.gameText = this.game.add.bitmapText(this.game.world.centerX, 230, 'flappyfont', 'FARM OF FREIXA', 24)
+    this.game.add.tween(this.gameText.scale).to({x: 1.2, y: 1.2}, 1000, Phaser.Easing.Linear.NONE, true, 0, 1000, true)
+    this.startButton = this.game.add.button(this.game.world.centerX, 380, 'startButton', this.startClick, this)
+
+    centerGameObjects([this.ready, this.gameText, this.startButton])
+
+    this.audioGame = this.game.add.audio('game')
+    this.game.sound.setDecodedCallback(this.audioGame, this.playSound, this)
   }
 
   startClick () {
     this.state.start('Game')
+  }
+
+  playSound () {
+    this.audioGame.play().volume = 0.2
   }
 }

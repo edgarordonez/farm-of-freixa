@@ -5,6 +5,7 @@ export default class extends Phaser.Sprite {
   constructor ({ game, x, y, asset }) {
     super(game, x, y, asset)
     this.game = game
+    this.game.add.existing(this)
 
     this.animations.add('run')
     this.animations.play('run', 10, true)
@@ -30,7 +31,15 @@ export default class extends Phaser.Sprite {
 
   up () {
     if (this.body.velocity.y === 0) {
+      this.freeze()
       this.body.velocity.y = -750
     }
+  }
+
+  freeze () {
+    this.animations.paused = true
+    this.game.time.events.add(900, () => {
+      this.animations.paused = false
+    })
   }
 }

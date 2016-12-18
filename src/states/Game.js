@@ -1,13 +1,14 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
+import { centerGameObjects } from '../utils'
 import Background from '../sprites/Background'
 import Ground from '../sprites/Ground'
 import Pool from '../sprites/Pool'
 import Runner from '../sprites/Runner'
-// import { setResponsiveWidth } from '../utils'
 
 export default class extends Phaser.State {
   init () {}
+
   preload () {}
 
   create () {
@@ -28,25 +29,18 @@ export default class extends Phaser.State {
 
     this.runner = new Runner({
       game: this.game,
-      x: this.game.world.centerX - 100,
+      x: this.game.world.centerX - 50,
       y: 465,
       asset: 'runner'
     })
 
-    this.cowGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.generateCows, this)
-
-    this.game.add.existing(this.background)
-    this.game.add.existing(this.ground)
-    this.game.add.existing(this.runner)
     this.cows = this.game.add.group()
+    this.cowGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.generateCows, this)
     this.game.add.existing(this.cows)
 
     this.score = 0
-    this.scoreText = this.add.text(this.game.world.centerX, this.game.height - 30, `SCORE: ${this.score.toString()}`)
-    this.scoreText.font = 'Nunito'
-    this.scoreText.fontSize = 20
-    this.scoreText.fill = '#FFFFFF'
-    this.scoreText.anchor.setTo(0.5)
+    this.scoreText = this.game.add.bitmapText(this.game.world.centerX, 20, 'flappyfont', `SCORE ${this.score.toString()}`, 24)
+    centerGameObjects([this.scoreText])
 
     this.scoreSound = this.game.add.audio('score')
     this.dieSound = this.game.add.audio('die')
@@ -76,25 +70,26 @@ export default class extends Phaser.State {
     if (pool.exists && !pool.hasScored && pool.cow.world.x <= this.runner.world.x) {
       pool.hasScored = true
       this.score++
-      this.scoreText.setText(`SCORE: ${this.score.toString()}`)
+      this.scoreText.setText(`SCORE ${this.score.toString()}`)
       this.scoreSound.play()
     }
   }
 
   gameOver () {
     this.dieSound.play()
-    this.state.start('GameOver')
+    this.state.start('GameOver', true, false, this.score)
   }
 
   shutdown () {
     this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR)
     this.runner.destroy()
     this.cows.destroy()
+    this.game.sound._sounds[0].destroy()
   }
 
   render () {
     if (__DEV__) {
-      // this.game.debug.spriteInfo(this.runner, 32, 32)
+      this.game.debug.spriteInfo(this.background, 32, 42)
     }
   }
 }
