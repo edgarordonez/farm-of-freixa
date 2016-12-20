@@ -1,3 +1,4 @@
+/* globals __DEV__ */
 import Phaser from 'phaser'
 import Cow from './Cow'
 
@@ -20,6 +21,9 @@ export default class extends Phaser.Group {
 
   update () {
     this.checkWorldBounds()
+    if (__DEV__) {
+      this.game.debug.spriteBounds(this.cow)
+    }
   }
 
   checkWorldBounds () {

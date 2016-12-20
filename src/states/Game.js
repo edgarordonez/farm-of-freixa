@@ -91,7 +91,7 @@ export default class extends Phaser.State {
 
   render () {
     if (__DEV__) {
-      this.game.debug.spriteInfo(this.background, 32, 42)
+      this.game.debug.spriteBounds(this.runner)
     }
   }
 }
