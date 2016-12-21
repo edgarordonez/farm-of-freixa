@@ -32,13 +32,13 @@ export default class extends Phaser.Sprite {
   up () {
     if (this.body.velocity.y === 0) {
       this.freeze()
-      this.body.velocity.y = -550
+      this.body.velocity.y = -575
     }
   }
 
   freeze () {
     this.animations.paused = true
-    this.game.time.events.add(1000, () => {
+    this.game.time.events.add(800, () => {
       this.animations.paused = false
     })
   }

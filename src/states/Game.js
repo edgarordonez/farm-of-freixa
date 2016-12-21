@@ -73,6 +73,9 @@ export default class extends Phaser.State {
 
   checkScore (pool) {
     if (pool.exists && !pool.hasScored && pool.cow.world.x <= this.runner.world.x) {
+
+      // CHECK GOLDEN COW INTERSECTS WITH RUNNER
+      console.log(this.game.physics.arcade.intersects(this.runner.body, pool.cow.body))
       pool.hasScored = true
       this.score++
       this.life = this.score % 10 === 0 ? this.life + 1 : this.life
@@ -101,7 +104,7 @@ export default class extends Phaser.State {
   render () {
     if (__DEV__) {
       this.game.debug.body(this.runner)
-      this.game.debug.body(this.ground)
+      // this.game.debug.body(this.ground)
     }
   }
 }

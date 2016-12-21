@@ -16,19 +16,21 @@ export default class extends Phaser.Group {
     })
     this.hasScored = false
     this.add(this.cow)
-    this.velocity = -300
+    this.velocity = -350
     this.game.time.events.loop(Phaser.Timer.SECOND * 6, this.updateVelocity, this)
   }
 
   update () {
     this.checkWorldBounds()
     if (__DEV__) {
-      this.game.debug.spriteBounds(this.cow)
+      this.game.debug.body(this.cow)
     }
   }
 
   updateVelocity () {
-    this.velocity = this.velocity * 1.2
+    if (this.velocity > -700) {
+      this.velocity = this.velocity * 1.2
+    }
   }
 
   checkWorldBounds () {
