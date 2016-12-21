@@ -23,7 +23,7 @@ export default class extends Phaser.Group {
   update () {
     this.checkWorldBounds()
     if (__DEV__) {
-      this.game.debug.body(this.cow)
+      this.game.debug.spriteBounds(this.cow)
     }
   }
 
