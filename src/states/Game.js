@@ -16,14 +16,6 @@ export default class extends Phaser.State {
   preload () {}
 
   create () {
-    this.scoreSound = this.game.add.audio('score')
-    this.dieSound = this.game.add.audio('die')
-
-    this.scoreText = this.game.add.bitmapText(this.game.world.centerX, 20, 'flappyfont', `SCORE ${this.score.toString()}`, 24)
-    centerGameObjects([this.scoreText])
-    this.lifeText = this.game.add.bitmapText(this.game.world.centerX, 50, 'flappyfont', `LIFES ${this.life.toString()}`, 24)
-    centerGameObjects([this.lifeText])
-
     // Objects
     this.background = new Background({
       game: this.game,
@@ -49,6 +41,14 @@ export default class extends Phaser.State {
     this.cows = this.game.add.group()
     this.cowGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.generateCows, this)
     this.game.add.existing(this.cows)
+
+    this.scoreText = this.game.add.bitmapText(this.game.world.centerX, 20, 'flappyfont', `SCORE ${this.score.toString()}`, 24)
+    centerGameObjects([this.scoreText])
+    this.lifeText = this.game.add.bitmapText(this.game.world.centerX, 50, 'flappyfont', `LIFES ${this.life.toString()}`, 24)
+    centerGameObjects([this.lifeText])
+
+    this.scoreSound = this.game.add.audio('score')
+    this.dieSound = this.game.add.audio('die')
   }
 
   update () {

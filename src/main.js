@@ -14,7 +14,7 @@ class Game extends Phaser.Game {
     let width = document.documentElement.clientWidth > 768 ? 800 : document.documentElement.clientWidth
     let height = document.documentElement.clientHeight > 700 ? 600 : document.documentElement.clientHeight
 
-    super(width, height, Phaser.AUTO, 'farm-of-freixa', null)
+    super(width, height, Phaser.AUTO, 'freixas-farm', null)
 
     this.state.add('Boot', BootState, false)
     this.state.add('Splash', SplashState, false)
