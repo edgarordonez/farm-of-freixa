@@ -28,7 +28,7 @@ export default class extends Phaser.Group {
   }
 
   updateVelocity () {
-    if (this.velocity > -700) {
+    if (this.velocity > -1000) {
       this.velocity = this.velocity * 1.2
     }
   }
@@ -43,7 +43,7 @@ export default class extends Phaser.Group {
     this.cow.reset(0, 0)
     this.x = x
     this.y = y
-    let position = this.game.rnd.integerInRange(this.velocity - 30, this.velocity + 40)
+    let position = this.game.rnd.integerInRange(this.velocity - (this.velocity * 0.1), this.velocity + (this.velocity * 0.1))
     this.setAll('body.velocity.x', position)
     this.hasScored = false
     this.exists = true

@@ -8,9 +8,9 @@ export default class extends Phaser.Sprite {
 
 
     this.game.physics.arcade.enableBody(this)
-    this.body.setSize(this.width * 0.04, (this.height - 200) * 0.04, -20, 200)
+    this.body.setSize(this.width * 0.2, (this.height - 50) * 0.2, -20, 50)
     this.anchor.setTo(0.5, 0.5)
-    this.scale.setTo(0.04, 0.04)
+    this.scale.setTo(0.2, 0.2)
     this.body.allowGravity = false
     this.body.immovable = true
   }

@@ -14,7 +14,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('runner', 'assets/images/runner2.png', 200, 218)
     this.load.image('background', 'assets/images/background.png')
     this.load.image('ground', 'assets/images/transparent.png')
-    this.load.image('cow', 'assets/images/cow.png')
+    this.load.image('cow', 'assets/images/cow2.png')
     this.load.image('ready', 'assets/images/get-ready.png')
     this.load.image('game-over', 'assets/images/gameover.png')
     this.load.image('startButton', 'assets/images/start-button.png')
