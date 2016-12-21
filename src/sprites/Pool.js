@@ -1,3 +1,4 @@
+/* globals __DEV__ */
 import Phaser from 'phaser'
 import Cow from './Cow'
 
@@ -5,6 +6,7 @@ export default class extends Phaser.Group {
 
   constructor ({ game, parent, name }) {
     super(game, parent, name)
+    this.count = 1
     this.game = game
     this.cow = new Cow({
       game: this.game,
@@ -12,14 +14,21 @@ export default class extends Phaser.Group {
       y: 0,
       asset: 'cow'
     })
-    this.add(this.cow)
-
     this.hasScored = false
-    this.setAll('body.velocity.x', -300)
+    this.add(this.cow)
+    this.velocity = -300
+    this.game.time.events.loop(Phaser.Timer.SECOND * 6, this.updateVelocity, this)
   }
 
   update () {
     this.checkWorldBounds()
+    if (__DEV__) {
+      this.game.debug.body(this.cow)
+    }
+  }
+
+  updateVelocity () {
+    this.velocity = this.velocity * 1.2
   }
 
   checkWorldBounds () {
@@ -32,8 +41,10 @@ export default class extends Phaser.Group {
     this.cow.reset(0, 0)
     this.x = x
     this.y = y
-    this.setAll('body.velocity.x', -300)
+    let position = this.game.rnd.integerInRange(this.velocity - 30, this.velocity + 40)
+    this.setAll('body.velocity.x', position)
     this.hasScored = false
     this.exists = true
   }
+
 }

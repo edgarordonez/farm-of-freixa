@@ -5,16 +5,16 @@ export default class extends Phaser.Sprite {
   constructor ({ game, x, y, asset }) {
     super(game, x, y, asset)
     this.game = game
-    this.game.add.existing(this)
+
+    this.anchor.setTo(0.5, 0.5)
+    this.scale.setTo(0.35, 0.35)
 
     this.animations.add('run')
     this.animations.play('run', 10, true)
 
     this.game.physics.arcade.enableBody(this)
     this.body.collideWorldBounds = true
-
-    this.anchor.setTo(0.5, 0.5)
-    this.scale.setTo(0.6, 0.6)
+    this.game.add.existing(this)
   }
 
   update () {
@@ -32,13 +32,13 @@ export default class extends Phaser.Sprite {
   up () {
     if (this.body.velocity.y === 0) {
       this.freeze()
-      this.body.velocity.y = -750
+      this.body.velocity.y = -550
     }
   }
 
   freeze () {
     this.animations.paused = true
-    this.game.time.events.add(900, () => {
+    this.game.time.events.add(1000, () => {
       this.animations.paused = false
     })
   }

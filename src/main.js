@@ -12,7 +12,7 @@ class Game extends Phaser.Game {
 
   constructor () {
     let width = document.documentElement.clientWidth > 768 ? 800 : document.documentElement.clientWidth
-    let height = document.documentElement.clientHeight > 732 ? 600 : document.documentElement.clientHeight
+    let height = document.documentElement.clientHeight > 700 ? 600 : document.documentElement.clientHeight
 
     super(width, height, Phaser.AUTO, 'farm-of-freixa', null)
 

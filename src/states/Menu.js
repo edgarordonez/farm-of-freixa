@@ -23,13 +23,12 @@ export default class extends Phaser.State {
     this.startButton = this.game.add.button(this.game.world.centerX, 380, 'startButton', this.startClick, this)
 
     centerGameObjects([this.ready, this.gameText, this.startButton])
-
     this.audioGame = this.game.add.audio('game')
     this.game.sound.setDecodedCallback(this.audioGame, this.playSound, this)
   }
 
   startClick () {
-    this.state.start('Game')
+    this.state.start('Game', true, false, 0, 0)
   }
 
   playSound () {
