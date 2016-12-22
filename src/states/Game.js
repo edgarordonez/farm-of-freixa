@@ -73,7 +73,6 @@ export default class extends Phaser.State {
 
   checkScore (pool) {
     if (pool.exists && !pool.hasScored && pool.cow.world.x <= this.runner.world.x) {
-
       // CHECK GOLDEN COW INTERSECTS WITH RUNNER
       console.log(this.game.physics.arcade.intersects(this.runner.body, pool.cow.body))
       pool.hasScored = true
@@ -88,9 +87,7 @@ export default class extends Phaser.State {
   gameOver () {
     this.dieSound.play()
     if (this.life === 0) {
-      setTimeout(() => {
-        this.state.start('GameOver', true, false, this.score)
-      }, 200)
+      this.state.start('GameOver', true, false, this.score)
     } else {
       this.state.start('Game', true, false, this.life - 1, this.score)
     }
@@ -102,7 +99,6 @@ export default class extends Phaser.State {
     this.ground.destroy()
     this.runner.destroy()
     this.cows.destroy()
-    this.game.sound.removeByKey('game')
     this.game.sound.removeByKey('score')
     this.game.sound.removeByKey('die')
   }

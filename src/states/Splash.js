@@ -26,8 +26,6 @@ export default class extends Phaser.State {
   }
 
   create () {
-    this.game.physics.startSystem(Phaser.Physics.ARCADE)
-    this.game.physics.arcade.gravity.y = 1200
     this.state.start('Menu')
   }
 }

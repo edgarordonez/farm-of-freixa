@@ -11,17 +11,17 @@ import GameOverState from './states/GameOver'
 class Game extends Phaser.Game {
 
   constructor () {
-    let width = document.documentElement.clientWidth > 768 ? 800 : document.documentElement.clientWidth
-    let height = document.documentElement.clientHeight > 700 ? 600 : document.documentElement.clientHeight
+    let gameRatio = window.innerWidth / window.innerHeight
+    let width = Math.ceil(600 * gameRatio)
+    let heigth = 600 // <== MAX BACKGROUND DESIGN
 
-    super(width, height, Phaser.AUTO, 'freixas-farm', null)
+    super(width, heigth, Phaser.AUTO, 'freixas-farm', null)
 
     this.state.add('Boot', BootState, false)
     this.state.add('Splash', SplashState, false)
     this.state.add('Menu', MenuState, false)
     this.state.add('Game', GameState, false)
     this.state.add('GameOver', GameOverState, false)
-
     this.state.start('Boot')
   }
 }

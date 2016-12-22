@@ -23,6 +23,15 @@ export default class extends Phaser.State {
     this.load.image('loaderBar', './assets/images/loader-bar.png')
   }
 
+  create () {
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+    this.game.scale.pageAlignVertically = true
+    this.game.scale.pageAlignHorizontally = true
+
+    this.game.physics.startSystem(Phaser.Physics.ARCADE)
+    this.game.physics.arcade.gravity.y = 1200
+  }
+
   render () {
     if (this.fontsReady) {
       this.state.start('Splash')
