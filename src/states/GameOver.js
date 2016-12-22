@@ -21,27 +21,11 @@ export default class extends Phaser.State {
     this.game.add.tween(this.gameOver.scale).to({x: 1.1, y: 1.1}, 1000, Phaser.Easing.Linear.NONE, true, 0, 1000, true)
 
     this.scoreText = this.game.add.bitmapText(this.game.world.centerX, 250, 'flappyfont', `LAST SCORE ${this.score.toString()}`, 24)
-    this.timerText = this.game.add.bitmapText(this.game.world.centerX, 380, 'flappyfont', ``, 24)
-    centerGameObjects([this.gameOver, this.scoreText, this.timerText])
-
-    this.timer = this.game.time.create()
-    this.timerEvent = this.timer.add(Phaser.Timer.SECOND * 5, this.returnMenu, this)
-    this.timer.start()
+    this.startButton = this.game.add.button(this.game.world.centerX, 380, 'startButton', this.returnGame, this)
+    centerGameObjects([this.gameOver, this.scoreText, this.startButton])
   }
 
-  render () {
-    if (this.timer.running) {
-      this.timerText.setText(`RETURNS IN ${this.formatTime(Math.round((this.timerEvent.delay - this.timer.ms) / 1000)).toString()}`)
-    }
-  }
-
-  formatTime (s) {
-    let minutes = '0' + Math.floor(s / 60)
-    let seconds = '0' + (s - minutes * 60)
-    return seconds.substr(-2)
-  }
-
-  returnMenu () {
-    this.state.start('Menu')
+  returnGame () {
+    this.state.start('Game', true, false, 0, 0)
   }
 }

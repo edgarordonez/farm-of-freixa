@@ -87,7 +87,13 @@ export default class extends Phaser.State {
 
   gameOver () {
     this.dieSound.play()
-    this.life === 0 ? this.state.start('GameOver', true, false, this.score) : this.state.start('Game', true, false, this.life - 1, this.score)
+    if (this.life === 0) {
+      setTimeout(() => {
+        this.state.start('GameOver', true, false, this.score)
+      }, 200)
+    } else {
+      this.state.start('Game', true, false, this.life - 1, this.score)
+    }
   }
 
   shutdown () {
@@ -104,7 +110,7 @@ export default class extends Phaser.State {
   render () {
     if (__DEV__) {
       this.game.debug.body(this.runner)
-      // this.game.debug.body(this.ground)
+      this.game.debug.body(this.ground)
     }
   }
 }
