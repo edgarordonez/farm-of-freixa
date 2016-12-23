@@ -68,7 +68,7 @@ export default class extends Phaser.State {
         name: 'CowPool'
       })
     }
-    pool.reset(this.game.width + pool.width / 2, 477)
+    pool.reset(this.game.width + 30, 477)
   }
 
   checkScore (pool) {

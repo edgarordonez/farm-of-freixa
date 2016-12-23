@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import { safeZone } from '../utils'
 
 export default class extends Phaser.Sprite {
 
@@ -6,13 +7,16 @@ export default class extends Phaser.Sprite {
     super(game, x, y, asset)
     this.game = game
 
-    this.anchor.setTo(0.5, 0.5)
-    this.scale.setTo(0.35, 0.35)
-
     this.animations.add('run')
     this.animations.play('run', 10, true)
 
     this.game.physics.arcade.enableBody(this)
+
+    this.safeZone = safeZone(this)
+    this.height = this.safeZone.height * 0.12 // 12% of safeZone
+    this.scale.x = this.scale.y // scale width same as height
+    this.anchor.setTo(0.5, 0.5)
+
     this.body.collideWorldBounds = true
     this.game.add.existing(this)
   }
