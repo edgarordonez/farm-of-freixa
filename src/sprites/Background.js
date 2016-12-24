@@ -2,10 +2,10 @@ import Phaser from 'phaser'
 
 export default class extends Phaser.TileSprite {
 
-  constructor ({ game, x, y, asset }) {
+  constructor ({ game, x, y, asset, velocity }) {
     super(game, x, y, game.width, game.height, asset)
     this.game = game
-    this.velocity = -100
+    this.velocity = -velocity
     this.game.time.events.loop(Phaser.Timer.SECOND * 6, this.updateVelocity, this)
     this.game.add.existing(this)
   }
@@ -19,5 +19,4 @@ export default class extends Phaser.TileSprite {
       this.velocity = this.velocity * 1.2
     }
   }
-
 }

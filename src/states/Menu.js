@@ -12,17 +12,43 @@ export default class extends Phaser.State {
       game: this.game,
       x: 0,
       y: 0,
-      asset: 'background'
+      asset: 'background',
+      velocity: 10
     })
 
-    this.ready = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'ready')
-    this.game.add.tween(this.ready.scale).to({x: 1.1, y: 1.1}, 1000, Phaser.Easing.Linear.NONE, true, 0, 1000, true)
+    this.background_sol = new Background({
+      game: this.game,
+      x: 0,
+      y: 0,
+      asset: 'background_sol',
+      velocity: 15
+    })
 
-    this.gameText = this.game.add.bitmapText(this.game.world.centerX, 230, 'flappyfont', 'FREIXAS FARM', 24)
+    this.background_arboles = new Background({
+      game: this.game,
+      x: 0,
+      y: 0,
+      asset: 'background_arboles',
+      velocity: 150
+    })
+
+    this.background_ground = new Background({
+      game: this.game,
+      x: 0,
+      y: 0,
+      asset: 'background_ground',
+      velocity: 170
+    })
+
+    this.gameText = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 100, 'FREIXAS FARM', this.game.customStyle)
     this.game.add.tween(this.gameText.scale).to({x: 1.2, y: 1.2}, 1000, Phaser.Easing.Linear.NONE, true, 0, 1000, true)
-    this.startButton = this.game.add.button(this.game.world.centerX, 380, 'startButton', this.startClick, this)
 
-    centerGameObjects([this.ready, this.gameText, this.startButton])
+    this.startButton = this.game.add.button(this.game.world.centerX, this.game.world.centerY, 'startButton', this.startClick, this, 1, 0, 2)
+    this.startButton.scale.setTo(0.7, 0.7)
+    this.game.add.tween(this.startButton.scale).to({x: 0.9, y: 0.9}, 1000, Phaser.Easing.Linear.NONE, true, 0, 1000, true)
+
+    centerGameObjects([this.gameText, this.startButton])
+
     this.audioGame = this.game.add.audio('game')
     this.game.sound.setDecodedCallback(this.audioGame, this.playSound, this)
   }
@@ -32,6 +58,6 @@ export default class extends Phaser.State {
   }
 
   playSound () {
-    this.audioGame.play().volume = 0.2
+    this.audioGame.play().volume = 0.05
   }
 }

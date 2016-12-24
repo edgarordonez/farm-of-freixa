@@ -11,7 +11,7 @@ export default class extends Phaser.State {
   preload () {
     WebFont.load({
       google: {
-        families: ['Nunito']
+        families: ['Permanent+Marker']
       },
       active: this.fontsLoaded
     })
@@ -29,7 +29,7 @@ export default class extends Phaser.State {
     this.game.scale.pageAlignHorizontally = true
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
-    this.game.physics.arcade.gravity.y = 1200
+    this.game.physics.arcade.gravity.y = 1900
   }
 
   render () {

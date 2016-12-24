@@ -1,0 +1,7 @@
+{
+  "short_name": "Freixas Farm",
+  "name": "Freixas Farm",
+  "start_url": "/index.html",
+  "display": "fullscreen",
+  "orientation": "portrait"
+}

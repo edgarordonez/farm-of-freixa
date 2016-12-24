@@ -14,15 +14,37 @@ export default class extends Phaser.State {
       game: this.game,
       x: 0,
       y: 0,
-      asset: 'background'
+      asset: 'background',
+      velocity: 10
     })
 
-    this.gameOver = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'game-over')
-    this.game.add.tween(this.gameOver.scale).to({x: 1.1, y: 1.1}, 1000, Phaser.Easing.Linear.NONE, true, 0, 1000, true)
+    this.background_sol = new Background({
+      game: this.game,
+      x: 0,
+      y: 0,
+      asset: 'background_sol',
+      velocity: 15
+    })
 
-    this.scoreText = this.game.add.bitmapText(this.game.world.centerX, 250, 'flappyfont', `LAST SCORE ${this.score.toString()}`, 24)
-    this.startButton = this.game.add.button(this.game.world.centerX, 380, 'startButton', this.returnGame, this)
-    centerGameObjects([this.gameOver, this.scoreText, this.startButton])
+    this.background_arboles = new Background({
+      game: this.game,
+      x: 0,
+      y: 0,
+      asset: 'background_arboles',
+      velocity: 150
+    })
+
+    this.background_ground = new Background({
+      game: this.game,
+      x: 0,
+      y: 0,
+      asset: 'background_ground',
+      velocity: 170
+    })
+
+    this.scoreText = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 100, `LAST SCORE ${this.score.toString()}`, this.game.customStyle)
+    this.startButton = this.game.add.button(this.game.world.centerX, this.game.world.centerY, 'restartButton', this.returnGame, this, 1, 0, 2)
+    centerGameObjects([this.scoreText, this.startButton])
   }
 
   returnGame () {

@@ -12,8 +12,8 @@ class Game extends Phaser.Game {
 
   constructor () {
     let gameRatio = window.innerWidth / window.innerHeight
-    let width = Math.ceil(600 * gameRatio)
-    let heigth = 600 // <== MAX BACKGROUND DESIGN
+    let width = Math.ceil(1080 * gameRatio)
+    let heigth = 1080 // <== MAX BACKGROUND DESIGN
 
     super(width, heigth, Phaser.AUTO, 'freixas-farm', null)
 

@@ -4,6 +4,7 @@ import { centerGameObjects } from '../utils'
 import Background from '../sprites/Background'
 import Ground from '../sprites/Ground'
 import Pool from '../sprites/Pool'
+import ChickenPool from '../sprites/ChickenPool'
 import Runner from '../sprites/Runner'
 
 export default class extends Phaser.State {
@@ -21,20 +22,45 @@ export default class extends Phaser.State {
       game: this.game,
       x: 0,
       y: 0,
-      asset: 'background'
+      asset: 'background',
+      velocity: 10
+    })
+
+    this.background_sol = new Background({
+      game: this.game,
+      x: 0,
+      y: 0,
+      asset: 'background_sol',
+      velocity: 15
+    })
+
+    this.background_arboles = new Background({
+      game: this.game,
+      x: 0,
+      y: 0,
+      asset: 'background_arboles',
+      velocity: 150
+    })
+
+    this.background_ground = new Background({
+      game: this.game,
+      x: 0,
+      y: 0,
+      asset: 'background_ground',
+      velocity: 170
     })
 
     this.ground = new Ground({
       game: this.game,
       x: 0,
-      y: 520,
+      y: 848,
       asset: 'ground'
     })
 
     this.runner = new Runner({
       game: this.game,
       x: this.game.world.centerX - 100,
-      y: 480,
+      y: 790,
       asset: 'runner'
     })
 
@@ -42,20 +68,28 @@ export default class extends Phaser.State {
     this.cowGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.generateCows, this)
     this.game.add.existing(this.cows)
 
-    this.scoreText = this.game.add.bitmapText(this.game.world.centerX, 20, 'flappyfont', `SCORE ${this.score.toString()}`, 24)
+    this.chickens = this.game.add.group()
+    this.chickenGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 120, this.generateChickens, this)
+    this.game.add.existing(this.chickens)
+
+    this.scoreText = this.game.add.text(this.game.world.centerX - 150, 50, `SCORE ${this.score.toString()}`, this.game.customStyle)
     centerGameObjects([this.scoreText])
-    this.lifeText = this.game.add.bitmapText(this.game.world.centerX, 50, 'flappyfont', `LIFES ${this.life.toString()}`, 24)
+
+    this.lifeImage = this.game.add.sprite(this.game.world.centerX + 150, 20, 'lifes')
+    this.lifeText = this.game.add.text(this.game.world.centerX + 280, 50, `${this.life.toString()}`, this.game.customStyle)
     centerGameObjects([this.lifeText])
 
-    this.scoreSound = this.game.add.audio('score')
     this.dieSound = this.game.add.audio('die')
   }
 
   update () {
-    this.game.physics.arcade.collide([this.runner, this.cows], this.ground)
-    this.cows.forEach((pool) => {
+    this.game.physics.arcade.collide(this.runner, this.ground)
+    this.cows.forEach(pool => {
       this.checkScore(pool)
       this.game.physics.arcade.collide(this.runner, pool, this.gameOver, null, this)
+    })
+    this.chickens.forEach(pool => {
+      this.checkLife(pool)
     })
   }
 
@@ -68,19 +102,38 @@ export default class extends Phaser.State {
         name: 'CowPool'
       })
     }
-    pool.reset(this.game.width + 30, 477)
+    pool.reset(this.game.width + pool.width / 2, 790)
+  }
+
+  generateChickens () {
+    let pool = this.chickens.getFirstExists(false)
+    if (!pool) {
+      pool = new ChickenPool({
+        game: this.game,
+        parent: this.chickens,
+        name: 'ChickenPool'
+      })
+    }
+    pool.reset(this.game.width + pool.width / 2, 790)
   }
 
   checkScore (pool) {
     if (pool.exists && !pool.hasScored && pool.cow.world.x <= this.runner.world.x) {
-      // CHECK GOLDEN COW INTERSECTS WITH RUNNER
-      console.log(this.game.physics.arcade.intersects(this.runner.body, pool.cow.body))
       pool.hasScored = true
       this.score++
       this.life = this.score % 10 === 0 ? this.life + 1 : this.life
       this.scoreText.setText(`SCORE ${this.score.toString()}`)
-      this.lifeText.setText(`LIFES ${this.life.toString()}`)
-      this.scoreSound.play()
+      this.lifeText.setText(`${this.life.toString()}`)
+    }
+  }
+
+  checkLife (pool) {
+    if (pool.exists && !pool.hasScored && pool.chicken.world.x <= this.runner.world.x) {
+      pool.hasScored = true
+      if (this.game.physics.arcade.intersects(this.runner.body, pool.chicken.body)) {
+        this.life += 2
+        this.lifeText.setText(`${this.life.toString()}`)
+      }
     }
   }
 
@@ -96,17 +149,20 @@ export default class extends Phaser.State {
   shutdown () {
     this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR)
     this.background.destroy()
+    this.background_sol.destroy()
+    this.background_arboles.destroy()
+    this.background_ground.destroy()
     this.ground.destroy()
     this.runner.destroy()
     this.cows.destroy()
-    this.game.sound.removeByKey('score')
-    this.game.sound.removeByKey('die')
   }
 
   render () {
+    /*
     if (__DEV__) {
       this.game.debug.body(this.runner)
       this.game.debug.body(this.ground)
     }
+    */
   }
 }

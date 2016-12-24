@@ -13,11 +13,12 @@ export default class extends Phaser.Sprite {
     this.game.physics.arcade.enableBody(this)
 
     this.safeZone = safeZone(this)
-    this.height = this.safeZone.height * 0.12 // 12% of safeZone
+    this.height = this.safeZone.height * 0.11 // 11% of safeZone
     this.scale.x = this.scale.y // scale width same as height
     this.anchor.setTo(0.5, 0.5)
 
     this.body.collideWorldBounds = true
+    this.soundUp = this.game.add.audio('up')
     this.game.add.existing(this)
   }
 
@@ -36,7 +37,8 @@ export default class extends Phaser.Sprite {
   up () {
     if (this.body.velocity.y === 0) {
       this.freeze()
-      this.body.velocity.y = -575
+      this.soundUp.play()
+      this.body.velocity.y = -875
     }
   }
 
