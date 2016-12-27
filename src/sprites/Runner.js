@@ -18,6 +18,7 @@ export default class extends Phaser.Sprite {
     this.anchor.setTo(0.5, 0.5)
 
     this.body.collideWorldBounds = true
+    this.upZone = new Phaser.Rectangle(0, 100, this.game.width, this.game.height)
     this.soundUp = this.game.add.audio('up')
     this.game.add.existing(this)
   }
@@ -31,11 +32,11 @@ export default class extends Phaser.Sprite {
     runnerKey.onDown.add(this.up, this)
 
     // Mouse/touch controls
-    this.game.input.onDown.add(this.up, this)
+    this.game.input.onDown.add(this.up, this, window.event)
   }
 
-  up () {
-    if (this.body.velocity.y === 0) {
+  up (ev) {
+    if (this.body.velocity.y === 0 && this.upZone.contains(ev.x, ev.y)) {
       this.freeze()
       this.soundUp.play()
       this.body.velocity.y = -875
