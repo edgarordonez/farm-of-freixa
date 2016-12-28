@@ -8,6 +8,7 @@ export default class extends Phaser.State {
     this.startClick = this.startClick.bind(this)
     this.mute = this.mute.bind(this)
   }
+
   preload () {}
 
   create () {

@@ -1,10 +1,8 @@
-/* globals __DEV__ */
 import Phaser from 'phaser'
 import Cow from './Cow'
 import Chicken from './Chicken'
 
 export default class extends Phaser.Group {
-
   constructor ({ game, parent, name, asset, velocity }) {
     super(game, parent, name)
     this.game = game
@@ -23,9 +21,6 @@ export default class extends Phaser.Group {
 
   update () {
     this.checkWorldBounds()
-    if (__DEV__) {
-      this.game.debug.body(this.sprite)
-    }
   }
 
   updateVelocity () {

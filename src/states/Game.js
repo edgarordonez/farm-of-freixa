@@ -92,7 +92,7 @@ export default class extends Phaser.State {
     centerGameObjects([this.continueButton])
     this.continueButton.visible = false
 
-    this.pauseButton = this.game.add.button(130, 10, 'pauseButton', this.pause, null, 1, 0, 2)
+    this.pauseButton = this.game.add.button(130, 10, 'pauseButton', this.pause, null, 0, 0, 0)
 
     this.lifeSound = this.game.add.audio('life')
     this.dieSound = this.game.add.audio('die')
@@ -201,9 +201,11 @@ export default class extends Phaser.State {
   }
 
   render () {
+    /*
     if (__DEV__) {
       this.game.debug.body(this.runner)
       this.game.debug.body(this.ground)
     }
+    */
   }
 }
