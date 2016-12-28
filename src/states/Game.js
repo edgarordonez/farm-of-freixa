@@ -100,8 +100,10 @@ export default class extends Phaser.State {
     this.game.input.onDown.add(() => {
       if (this.game.paused) {
         this.game.paused = false
+        this.continueButton.visible = false
+        this.pauseButton.visible = true
+        this.audioButton.visible = true
       }
-      this.continueButton.visible = false
     })
   }
 
@@ -186,6 +188,8 @@ export default class extends Phaser.State {
 
   pause () {
     this.continueButton.visible = true
+    this.pauseButton.visible = false
+    this.audioButton.visible = false
     this.game.paused = !this.game.paused
   }
 
@@ -204,7 +208,6 @@ export default class extends Phaser.State {
     /*
     if (__DEV__) {
       this.game.debug.body(this.runner)
-      this.game.debug.body(this.ground)
     }
     */
   }

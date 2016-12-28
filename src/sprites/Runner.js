@@ -28,14 +28,14 @@ export default class extends Phaser.Sprite {
 
     // Keyboard controls
     let runnerKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
-    runnerKey.onDown.add(this.up, this)
+    runnerKey.onDown.add(this.up, this, window.event)
 
     // Mouse/touch controls
     this.game.input.onDown.add(this.up, this, window.event)
   }
 
   up (ev) {
-    if (this.body.velocity.y === 0 && this.upZone.contains(ev.x, ev.y)) {
+    if (this.body.velocity.y === 0 && this.upZone.contains(ev.x, ev.y) || (this.body.velocity.y === 0 && ev.keyCode === 32)) {
       this.freeze()
       this.soundUp.play()
       this.body.velocity.y = -875
